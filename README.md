@@ -1,43 +1,105 @@
 # PART I
-
-
-## VALUES, TYPES, AND OPERATORS
-
-### Values
-
-### Numbers
+## PROGRAM STRUCTURE
+### Expressions and Statements
 ```
-12
-9.81
-2.99e8
+1; !false;
 ```
-### Strings
+### Bindings
 ```
-`Down on the sea`
-"Lie on the ocean"
-'Float on the ocean'
-"A newline character is written like \"\\n\"."
-"con" + "cat" + "e" + "nate"
-`half of 100 is ${100 / 2}`
+let caught = 5 * 5;
+let ten = 10;
+console.log(ten * ten); // → 100
 ```
-### Unary Operators
+### Binding Names
 ```
-console.log(typeof 4.5) // → number
-console.log(typeof "x") // → string
+break case catch class const continue debugger default
+delete do else enum export extends false finally for
+function if implements import interface in instanceof let new package private protected public return static super switch this throw true try typeof var void while with yield
 ```
-### Boolean Values
+### The Environment
+### Functions
 ```
-console.log(3 > 2) // → true 
-console.log(3 < 2) // → false
+prompt("Enter passcode");
 ```
-### Empty Values
-### Automatic Type Conversion
+###  The console.log Function
+### Return Values
 ```
-console.log(8 * null) // → 0 
-console.log("5" - 1) // → 4 
-console.log("5" + 1) // → 51 
-console.log("five" * 2) // → NaN
+console.log(Math.max(2, 4)); // → 4
 ```
-### Summary
+### Control Flow
 ```
-(==, !=, ===, !==, <, >, <=, >=)
+let theNumber = Number(prompt("Pick a number"));
+console.log("Your number is the square root of " + theNumber * theNumber);
+```
+### while and do Loops
+```
+let number = 0; 
+while (number <= 12) { 
+	console.log(number); number = number + 2; 
+} 
+// → 0
+// → 2 
+// ... etcetera
+```
+### Indenting Code
+```
+if (false != true) {
+	console.log("That makes sense."); 
+	if (1 < 2) { 
+		console.log("No surprise there.");
+	} 
+}
+```
+### for Loops
+```
+for (let number = 0; number <= 12; number = number + 2) { 
+	console.log(number); 
+} 
+// → 0 
+// → 2 
+// ... etcetera
+```
+### Breaking Out of a Loop
+```
+for (let current = 20; ; current = current + 1) {
+	if (current % 7 == 0) {
+	console.log(current); break; 
+	} 
+} 
+// → 21
+```
+### Updating Bindings Succinctly
+### Dispatching on a Value with switch
+```
+switch (prompt("What is the weather like?")) {
+	case "rainy":
+		console.log("Remember to bring an umbrella."); 
+		break;
+	case "sunny":
+		console.log("Dress lightly.");
+	case "cloudy":
+		console.log("Go outside.");
+		break;
+	default:
+	console.log("Unknown weather type!");
+	break;
+}
+```
+### Capitalization
+```
+fuzzylittleturtle
+fuzzy_little_turtle
+FuzzyLittleTurtle
+fuzzyLittleTurtle
+```
+### Comments
+```
+let accountBalance = calculateBalance(account);
+// It's a green hollow where a river sings
+accountBalance.adjust();
+// Madly catching white tatters in the grass.
+let report = new Report();
+// Where the sun on the proud mountain rings:
+addToReport(accountBalance, report);
+// It's a little valley, foaming like light in a glass.
+```

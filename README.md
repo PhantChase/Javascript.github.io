@@ -1,57 +1,60 @@
 # PART I
-## DATA STRUCTURES: OB JECTS AND ARRAYS
-### The Weresquirrel
-### Data Sets
+## HIGHER-ORDER FUNCTIONS
+### Abstraction
+### Abstracting Repetition
 ```
-let listOfNumbers = [2, 3, 5, 7, 11];
-console.log(listOfNumbers[2]); // → 5
-console.log(listOfNumbers[0]); // → 2
-console.log(listOfNumbers[2 - 1]); // → 3
+let labels = []; repeat(5, i => {
+labels.push(`Unit ${i + 1}`); }); console.log(labels); // → ["Unit 1", "Unit 2", "Unit 3", "Unit 4", "Unit 5"]
 ```
-### Properties
+### Higher-Order Functions
 ```
-null.length;
-// → TypeError: null has no properties
-```
-### Methods
-```
-let sequence = [1, 2, 3];
-sequence.push(4);
-sequence.push(5);
-console.log(sequence); // → [1, 2, 3, 4, 5]
-console.log(sequence.pop()); // → 5
-console.log(sequence); // → [1, 2, 3, 4]
-```
-### Objects
-```
-let descriptions = {
-	work: "Went to work", "touched tree": "Touched a tree"
-};
-```
-###  Mutability
-```
-let object1 = {value: 10};
-let object2 = object1;
-let object3 = {value: 10};
-console.log(object1 == object2); // → true
-console.log(object1 == object3); // → false
-object1.value = 15;
-console.log(object2.value); // → 15
-console.log(object3.value); // → 10
-```
-### Computing Correlation
-```
-function phi(table) {
-return (table[3] * table[0] - table[2] * table[1]) /
-Math.sqrt((table[2] + table[3]) * (table[0] + table[1]) * (table[1] + table[3]) * (table[0] + table[2]));
+function noisy(f) {
+	return (...args) => {
+		console.log("calling with", args);
+		let result = f(...args);
+		console.log("called with", args, ", returned", result);
+		return result;
+	};
 }
-console.log(phi([76, 9, 4, 1])); // → 0.068599434
+noisy(Math.min)(3, 2, 1);
+// → calling with [3, 2, 1]
+// → called with [3, 2, 1] , returned 1
 ```
-### Array Loops
+### Script Data Set
 ```
-for (let i = 0; i < JOURNAL.length; i++) {
-	let entry = JOURNAL[i]; // Do something with entry
+{
+	name: "Coptic",
+	ranges: [[994, 1008], [11392, 11508], [11513, 11520]],
+	direction: "ltr", year: -200,
+	living: false,
+	link:"https://en.wikipedia.org/wiki/Coptic_alphabet"
 }
 ```
-### The Final Analysis
-### Further Arrayology
+### Filtering Arrays
+```
+function filter(array, test) {
+	let passed = [];
+	for (let element of array) {
+		if (test(element)) {
+			passed.push(element);
+		}
+	} return passed;
+}
+
+console.log(filter(SCRIPTS, script => script.living));
+// → [{name: "Adlam", ...}, ...]
+```
+###  Transforming with map
+```
+function map(array, transform) {
+	let mapped = [];
+	for (let element of array) {
+		mapped.push(transform(element));
+	}
+	return mapped;
+}
+let rtlScripts = SCRIPTS.filter(s => s.direction == "rtl");
+console.log(map(rtlScripts, s => s.name));
+// → ["Adlam", "Arabic", "Imperial Aramaic", ...]
+```
+### Summarizing with reduce

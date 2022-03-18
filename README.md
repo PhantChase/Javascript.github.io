@@ -1,61 +1,38 @@
 # PART I
-## REGULAR EXPRESSIONS
-### Creating a Regular Expression
+## MODULES
+### Modules as Building Blocks
+### Improvised Modules
 ```
-let re1 = new RegExp("abc");
-let re2 = /abc/;
+const weekDay = function() {
+	const names = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+return {
+	name(number) { return names[number]; },
+	number(name) { return names.indexOf(name); }
+};
+}();
+console.log(weekDay.name(weekDay.number("Sunday")));
+// → Sunday
 ```
-### Testing for Matches
+### Evaluating Data as Code
 ```
-console.log(/abc/.test("abcde"));
-// → true
-console.log(/abc/.test("abxde"));
-// → false
-```
-### Sets of Characters
-```
-let notBinary = /[^01]/;
-console.log(notBinary.test("1100100010100110")); // → false
-console.log(notBinary.test("1100100010200110")); // → true
-```
-### Repeating Parts of a Pattern
-```
-let neighbor = /neighbou?r/;\
-console.log(neighbor.test("neighbour")); // → true
-console.log(neighbor.test("neighbor")); // → true
-```
-### Grouping Subexpressions
-```
-let cartoonCrying = /boo+(hoo+)+/i;
-console.log(cartoonCrying.test("Boohoooohoohooo")); // → true
-```
-### Matches and Groups
-```
-console.log(/bad(ly)?/.exec("bad"));
-// → ["bad", undefined]
-console.log(/(\d)+/.exec("123"));
-// → ["123", "3"]
-```
-### The Date Class
-```
-function getDate(string) {
-	let [_, month, day, year] = /(\d{1,2
-})-(
-\d{1,2})-(\d{4})/.exec(string);
-	return new Date(year, month - 1, day);
+const x = 1; function evalAndReturnX(code) {
+	eval(code);
+	return x;
 }
-console.log(getDate("1-30-2003"));
-// → Thu Jan 30 2003 00:00:00 GMT+0100 (CET)
+console.log(evalAndReturnX("var x = 2"));
+// → 2
+console.log(x);
+// → 1
 ```
-### Word and String Boundaries
-### Choice Patterns
+### CommonJS
 ```
-let animalCount = /\b\d+ (pig|cow|chicken)s?\b/;
-console.log(animalCount.test("15 pigs"));
-// → true
-console.log(animalCount.test("15 pigchickens"));
-// → false
+const {parse} = require("ini");
+console.log(parse("x = 10\ny = 20"));
+// → {x: "10", y: "20"}
 ```
-### The Mechanics of Matching
-### Backtracking
-### The replace Method
+### ECMAScript Modules
+```
+import {days as dayNames} from "date-names";
+console.log(dayNames.length);
+// → 7
+```

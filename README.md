@@ -1,38 +1,76 @@
 # PART I
-## MODULES
-### Modules as Building Blocks
-### Improvised Modules
+## ASYNCHRONOUS PROGRAMMING
+### Asynchronicity
+### Crow Tech
+### Callbacks
 ```
-const weekDay = function() {
-	const names = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-return {
-	name(number) { return names[number]; },
-	number(name) { return names.indexOf(name); }
-};
-}();
-console.log(weekDay.name(weekDay.number("Sunday")));
-// → Sunday
+import {defineRequestType} from "./crow-tech"
+
+defineRequestType("note", (nest, content, source, done) => {
+console.log(`${nest.name} received note: ${content}`); done(); });
 ```
-### Evaluating Data as Code
+### Promises
 ```
-const x = 1; function evalAndReturnX(code) {
-	eval(code);
-	return x;
+function storage(nest, name) {
+	return new Promise(resolve => {
+		nest.readStorage(name, result => resolve(result));
+		});
 }
-console.log(evalAndReturnX("var x = 2"));
-// → 2
-console.log(x);
-// → 1
+storage(bigOak, "enemies")
+	.then(value => console.log("Got", value));
 ```
-### CommonJS
+### Failure
 ```
 const {parse} = require("ini");
 console.log(parse("x = 10\ny = 20"));
 // → {x: "10", y: "20"}
 ```
 ### ECMAScript Modules
+### Networks Are Hard
+### Collections of Promises
 ```
-import {days as dayNames} from "date-names";
-console.log(dayNames.length);
-// → 7
+requestType("ping", () => "pong");
+
+function availableNeighbors(nest) {
+	let requests = nest.neighbors.map(neighbor => {
+	return request(nest, neighbor, "ping")
+		.then(() => true, () => false);
+	});
+	return Promise.all(requests).then(result => {
+		return nest.neighbors.filter((_, i) => result[i]);
+	});
+}
+```
+### Network Flooding
+```
+import {everywhere} from "./crow-tech";
+everywhere(nest => {
+	nest.state.gossip = [];
+});
+
+function sendGossip(nest, message, exceptFor = null) {
+	nest.state.gossip.push(message);
+	for (let neighbor of nest.neighbors) {
+		if (neighbor == exceptFor) continue;
+		request(nest, neighbor, "gossip", message);
+	}
+} 
+requestType("gossip", (nest, message, source) => {
+	if (nest.state.gossip.includes(message)) return;
+	console.log(`${nest.name} received gossip '${
+			message}' from ${source}`);
+	sendGossip(nest, message, source);
+});
+```
+### Message Routing
+```
+function routeRequest(nest, target, type, content) {
+	if (nest.neighbors.includes(target)) {
+		return request(nest, target, type, content);
+	} else {
+		let via = findRoute(nest.name, target, nest.state.connections);
+	if (!via) throw new Error(`No route to ${target}`);
+	return request(nest, via, "route", {target, type, content});
+	}
+} requestType("route", (nest, {target, type, content}) => { return routeRequest(nest, target, type, content); });
 ```

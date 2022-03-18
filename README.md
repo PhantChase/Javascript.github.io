@@ -1,7 +1,8 @@
-Welcome file
-Welcome file
 # PART I
-## A PROGRAMMING LANGUAGE
-
-PART I
-A PROGRAMMING LANGUAGE
+## JAVASCR IPT AND THE BROWSER
+### Networks and the Internet
+### The Web
+### HTML
+### HTML and JavaScript
+### In the Sandbox
+### Compatibility and the Browser Wars

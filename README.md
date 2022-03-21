@@ -1,43 +1,62 @@
-# PART I
+# PROJECT: A PLATFORM GAME
+
+## The Game
+
+Try the game on www.lessmilk.com/games/10
+
+## The Technology
+
+## Levels
+
+## Reading a Level
+
+## Actors
+
+```
+class Vec {
+	constructor(x, y) {
+		this.x = x; this.y = y;
+	}
+	plus(other) {
+		return new Vec(this.x + other.x, this.y + other.y);
+	} times(factor) {
+		return new Vec(this.x * factor, this.y * factor);
+	}
+}
+```
+
+## Encapsulation as a Burden
+## Drawing
+
+```
+function elt(name, attrs, ...children) {
+	let dom = document.createElement(name);
+	for (let attr of Object.keys(attrs)) {
+		dom.setAttribute(attr, attrs[attr]);
+	} for (let child of children) {
+		dom.appendChild(child);
+	}
+	return dom;
+}
+```
+
+```
+class DOMDisplay {
+	constructor(parent, level) {
+		this.dom = elt("div", {class: "game"}, drawGrid(level));
+		this.actorLayer = null;
+		parent.appendChild(this.dom);
+	}
+	
+	clear() { this.dom.remove(); }
+}
+```
 
 
-## VALUES, TYPES, AND OPERATORS
+## Motion and Collision
 
-### Values
+## Actor Updates
 
-### Numbers
-```
-12
-9.81
-2.99e8
-```
-### Strings
-```
-`Down on the sea`
-"Lie on the ocean"
-'Float on the ocean'
-"A newline character is written like \"\\n\"."
-"con" + "cat" + "e" + "nate"
-`half of 100 is ${100 / 2}`
-```
-### Unary Operators
-```
-console.log(typeof 4.5) // → number
-console.log(typeof "x") // → string
-```
-### Boolean Values
-```
-console.log(3 > 2) // → true 
-console.log(3 < 2) // → false
-```
-### Empty Values
-### Automatic Type Conversion
-```
-console.log(8 * null) // → 0 
-console.log("5" - 1) // → 4 
-console.log("5" + 1) // → 51 
-console.log("five" * 2) // → NaN
-```
-### Summary
-```
-(==, !=, ===, !==, <, >, <=, >=)
+## Tracking Keys
+
+## Running the Game
